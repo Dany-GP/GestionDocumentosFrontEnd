@@ -1,8 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
+import { AppRoutingModule } from './app-routing.module';
+import { DocumentosModule } from './documentos/documentos.module';
+import { SharedModule } from './shared/shared.module';
+import { HttpClientModule } from '@angular/common/http';
+import { ConfirmationService } from 'primeng/api';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -10,9 +17,13 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    HttpClientModule,
+    AppRoutingModule,
+    DocumentosModule,
+    SharedModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
