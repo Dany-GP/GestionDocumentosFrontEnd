@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TipoDocumento } from '../interfaces/TipoDocumento';
 import { TiposDocumentoService } from '../services/tipos-documento.service';
+import { Documento } from '../interfaces/Documento';
+import { DocumentosService } from '../services/documentos.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-agregar-documento',
@@ -13,10 +16,16 @@ export class AgregarDocumentoComponent implements OnInit {
   tipo!: TipoDocumento;
   nombre: string = '';
   estado: string = 'activado';
-  fecha!: Date;
+  fecha!: Date | undefined;
 
-  constructor(tiposDocumentoService: TiposDocumentoService) {
-    tiposDocumentoService.obtenerTipos().subscribe(
+
+
+  constructor(
+    private tiposDocumentoService: TiposDocumentoService,
+    private documentosService: DocumentosService,
+    private messageService: MessageService
+  ) {
+    this.tiposDocumentoService.obtenerTipos().subscribe(
       {
         next:
           (tiposDocumento) => {
@@ -26,19 +35,65 @@ export class AgregarDocumentoComponent implements OnInit {
         error:
           (error) => {
             console.log(error);
+            return;
           }
       }
     )
-   }
+  }
+
+  notificarInsertado() {
+    this.messageService.add({ severity: 'success', summary: 'Elemento agregado', detail: 'El elemento ha sido agregado exitosamente' });
+  }
+
+  notificarError() {
+    this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Los datos recolectados contienen un error, por favor compruebe de nuevo los datos' });
+  }
+
+  clear() {
+    this.messageService.clear();
+    window.location.reload();
+  }
+
+  limpiarCajas(){
+    this.nombre = '';
+    this.fecha = undefined;
+    this.estado = 'activado';
+  }
+
 
   ngOnInit(): void {
   }
 
-  agregarDoc(){
-    console.log(this.nombre);
-    console.log(this.tipo);
-    console.log(this.estado);
-    console.log(this.fecha.getFullYear());
+  agregarDoc() {
+
+    if (this.nombre.trim().length < 3 || this.fecha == null) {
+      this.notificarError();
+      return;
+    }
+
+    let documento: Documento = {
+      codigo: 0,
+      nombre: this.nombre,
+      tipoDocumento: this.tipo.codigo,
+      fecha: this.fecha,
+      activo: this.estado === 'activado' ? true : false
+    }
+
+    this.documentosService.agregarDocumento(documento).subscribe(
+      {
+        next:
+          (response) => {
+            console.log(response);
+          },
+        error:
+          (error) => {
+            console.log(error);
+          }
+      }
+    )
+    this.notificarInsertado();
+    this.limpiarCajas();
+
   }
 
 }

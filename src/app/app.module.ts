@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { DocumentosModule } from './documentos/documentos.module';
 import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { FormsModule } from '@angular/forms';
 
 
@@ -23,7 +23,7 @@ import { FormsModule } from '@angular/forms';
     SharedModule,
     FormsModule
   ],
-  providers: [ConfirmationService],
+  providers: [ConfirmationService, MessageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

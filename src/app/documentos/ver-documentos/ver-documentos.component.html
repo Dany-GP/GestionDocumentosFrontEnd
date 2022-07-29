@@ -16,33 +16,63 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-doc>
-            <tr >
+            <tr>
                 <td>{{doc.codigo}}</td>
                 <td>{{doc.nombre}}</td>
                 <td>{{doc.tipoDocumento}}</td>
                 <td>{{doc.fecha}}</td>
                 <td *ngIf="doc.activo">
                     <i class="pi pi-check"></i>
-                    
+
                 </td>
                 <td *ngIf="!doc.activo">
-                   
+
                     <i class="pi pi-times"></i>
                 </td>
                 <td>
-                    <button class="mr-2 mb-1 p-button-info"  pButton type="button" (click)="showDialog()" icon="pi pi-pencil" label="Editar"></button>
-                    <button class="mb-1 p-button-danger"  pButton type="button" (click)="confirm(doc.codigo)" icon="pi pi-times" label="Eliminar"></button>
+                    <button class="mr-2 mb-1 p-button-info" pButton type="button" (click)="showDialog(doc.codigo)"
+                        icon="pi pi-pencil" label="Editar"></button>
+                    <button class="mb-1 p-button-danger" pButton type="button" (click)="confirm(doc.codigo)"
+                        icon="pi pi-times" label="Eliminar"></button>
                 </td>
             </tr>
         </ng-template>
     </p-table>
 
-    <p-dialog header="Title" [(visible)]="display">
-        Content
+    <p-dialog [(visible)]="display" [modal]="true" [style]="{width: '50vw', height: '50vw'}">
+        <ng-template pTemplate="header">
+            <h1>Editar Documento</h1>
+        </ng-template>
+        <div class="text-center m-auto">
+            <div class="field col">
+                <span class="p-float-label">
+                    <input [(ngModel)]="documentoActual.nombre" class="w-full" id="float-input" type="text" pInputText>
+                    <label class="" for="float-input">Nombre del archivo</label>
+                </span>
+            </div>
+            <div class="field col">
+                <p-dropdown [options]="tiposDocumentos" [(ngModel)]="documentoActual.tipoDocumento " class="w-full" optionLabel="nombre">
+                </p-dropdown>
+            </div>
+            <label for="">Estado del archivo</label>
+            <div class="field col block">
+
+                <p-selectButton [options]="estados" [(ngModel)]=" documentoActual.activo" optionLabel=""></p-selectButton>
+            </div>
+            <div class="field col">
+                <p-calendar [(ngModel)]="documentoActual.fecha " dateFormat="yy-mm-ddT" class="w-full" [showIcon]="true"
+                    [showTime]="true" [showSeconds]="true" inputId="time" [showButtonBar]="true" inputId="buttonbar">
+                </p-calendar>
+            </div>
+        </div>
+
+        <ng-template pTemplate="footer">
+            <p-button icon="pi pi-check" (click)="editarDocumento()" label="Ok" styleClass="p-button-text"></p-button>
+        </ng-template>
     </p-dialog>
-    <p-confirmDialog rejectButtonStyleClass="p-button-outlined" header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-    
-    
+    <p-confirmDialog rejectButtonStyleClass="p-button-outlined" header="Confirmation" icon="pi pi-exclamation-triangle">
+    </p-confirmDialog>
+
+
 
 </div>
-

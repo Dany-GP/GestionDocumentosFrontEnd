@@ -12,6 +12,9 @@ import {CardModule} from 'primeng/card';
 import {DropdownModule} from 'primeng/dropdown';
 import {CalendarModule} from 'primeng/calendar';
 import {SelectButtonModule} from 'primeng/selectbutton';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
+import { ToastModule} from 'primeng/toast';
 
 @NgModule({
   declarations: [],
@@ -26,7 +29,10 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     CardModule, 
     DropdownModule,
     CalendarModule,
-    SelectButtonModule
+    SelectButtonModule,
+    MessageModule,
+    MessagesModule,
+    ToastModule
   ],
   exports:[
     MenubarModule,
@@ -39,7 +45,10 @@ import {SelectButtonModule} from 'primeng/selectbutton';
     CardModule,
     DropdownModule,
     CalendarModule,
-    SelectButtonModule
+    SelectButtonModule,
+    MessageModule,
+    MessagesModule,
+    ToastModule
   ]
 })
 export class PrimeNgModule { }

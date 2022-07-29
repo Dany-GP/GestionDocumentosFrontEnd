@@ -1,27 +1,31 @@
-<div class="card col-6 text-center m-auto" >
+<p-toast position="top-right"></p-toast>
+<div class="card col-6 text-center m-auto">
     <h1 class="mb-5">Agregar un nuevo documento</h1>
+    
     <p-card class="mt-5">
-        <div class=" ">
+        <div class="">
             <div class="field col">
-                <span class="p-float-label">
+                <span class="p-float-label flex">
                     <input [(ngModel)]="nombre" class="w-full" id="float-input" type="text" pInputText>
                     <label class="" for="float-input">Nombre del archivo</label>
                 </span>
             </div>
             <div class="field col">
-                <p-dropdown [options]="tiposDocumentos" [(ngModel)]="tipo" class="w-full" optionLabel="nombre"></p-dropdown>
+                <p-dropdown [options]="tiposDocumentos" [(ngModel)]="tipo" class="w-full" optionLabel="nombre">
+                </p-dropdown>
             </div>
             <div class="field col">
-                <p-calendar [(ngModel)]="fecha"  dateFormat="yy-mm-ddT" class="w-full" [showIcon]="true"  [showTime]="true" [showSeconds]="true" inputId="time"  [showButtonBar]="true" inputId="buttonbar"></p-calendar>
+                <p-calendar [(ngModel)]="fecha" dateFormat="yy-mm-ddT" class="w-full" [showIcon]="true"
+                    [showTime]="true" [showSeconds]="true" inputId="time" [showButtonBar]="true" inputId="buttonbar">
+                </p-calendar>
             </div>
             <label for="">Estado del archivo</label>
             <div class="field col block">
-                
-                <p-selectButton [options]="estados" [(ngModel)]="estado"  optionLabel=""></p-selectButton>
+
+                <p-selectButton [options]="estados" [(ngModel)]="estado" optionLabel=""></p-selectButton>
             </div>
         </div>
         <div>
-            
             <p-button (onClick)="agregarDoc()" class="" label="Agregar documento"></p-button>
         </div>
 

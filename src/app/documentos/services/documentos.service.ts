@@ -20,6 +20,14 @@ export class DocumentosService {
     return this.http.get<Documento[]>(this.url);
   }
 
+  obtenerDocumento(id: number): Observable<Documento>{
+    return this.http.get<Documento>(this.url + "/" + id);
+  }
+
+  atualizarDocumento(documento: Documento): Observable<Documento>{
+    return this.http.put<Documento>(this.url + "/" + documento.codigo, documento);
+  }
+
   agregarDocumento(documento: Documento): Observable<Documento>{
     return this.http.post<Documento>(this.url, documento);
   }
